@@ -54,7 +54,8 @@ public class CollectionsLambdaClient {
 //                });
 
         List<Integer> abc2 = Arrays.asList(3, 4);
-        Optional<Integer> res = abc2.stream() // 10 //1 //2
+        long start = System.currentTimeMillis();
+        Optional<Integer> res = abc.stream() // 10 //1 //2
                 .filter(new Predicate<Integer>() { //5
                     @Override
                     public boolean test(Integer integer) {
@@ -75,6 +76,8 @@ public class CollectionsLambdaClient {
                         return integer+ integer2;
                     }
                 });
+        long end = System.currentTimeMillis();
+        System.out.println("Time taken is: "+ (end-start));
 
 //
 //                .reduce(0, new BinaryOperator<Integer>() {
@@ -96,7 +99,7 @@ public class CollectionsLambdaClient {
         System.out.println("sum using declarative 2 is : "+ sum3);
 
         // Try for yourself
-        //List<String> abc = Arrays.asList("sadfghjkdfg", "shjs", "", "gsdfghjuikdfg");
+        // ist<String> abc = Arrays.asList("sadfghjkdfg", "shjs", "", "gsdfghjuikdfg");
 
         // input => "sadfghjkdfg", "shjs", "", "gsdfghjuikdfg"
         // 1st step => "sadfg", "shjs", "", "gsdfg"
@@ -106,6 +109,23 @@ public class CollectionsLambdaClient {
         // calculate the substring of length 5 of each string if length is greater than 5, otherwise the streing as it is
         // only need the strings where the first and the last character is the same
         // return me that list
+
+        List<String> input = Arrays.asList("sadfghjkdfg", "shjs", "", "gsdfghjuikdfg");
+
+        List<String> output = input.stream()
+                .map(in -> {
+            if (in.length() > 5) {
+                return in.substring(0, 5);
+            } else {
+                return in;
+            }
+        }).filter(in -> in.length() > 0 && in.charAt(0) == in.charAt(in.length()-1))
+        .toList();
+
+        System.out.println("list is: "+ output);
+
+        System.out.println("Current thread is: "+ Thread.currentThread().getName());
+        System.out.println(Runtime.getRuntime().availableProcessors());
 
     }
 }
