@@ -9,7 +9,7 @@ public class TaskUsingRunnable implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Runnable I am running using: "+ Thread.currentThread());
+        System.out.println("Runnable I am running using: "+ Thread.currentThread().getName());
     }
 }
 
